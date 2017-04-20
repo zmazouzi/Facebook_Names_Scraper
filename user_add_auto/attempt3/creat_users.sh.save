@@ -1,0 +1,17 @@
+#!/bin/bash
+## this is a shell script
+
+for i in ii imti it
+do
+groupadd $i
+done
+
+for line in `awk  '{ print $1}'`
+do
+	name=$(echo $line | cut -f1 -d#)
+	password=$(echo $line | cut -f2 -d#)
+	group=$(echo $line | cut -f3 -d#)
+	useradd -g $group $name
+	chpasswd $name:$password
+done 
+echo "list of users created" 
